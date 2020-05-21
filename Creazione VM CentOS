@@ -1,1 +1,52 @@
-Creazione VM CentOS
+--- #settaggio iniziale
+  - name: Provisioning VM
+    host: localhost
+    become: true
+    gather_facts: false
+    connection: local
+    
+   # Prima macchina virtuale
+    vmware_guest:
+      hostname: "CentOS_1"
+      username: "admin"
+      password: "Admin01!"
+      validate_certs: no
+      state: poweredon
+      disk:
+      - size_gb: 500
+        type: thin
+      networks:
+      - name: network_test
+        ip: 192.168.100.50
+        netmask: 255.255.252.0
+        gateway: 192.168.100.1
+        dns_servers:
+        - 192.168.100.10
+        - 192.168.101.10
+      hardware:
+        memory_mb: 32768
+        num_cpus: 8
+        domain : DOMINIO-A
+
+        #seconda macchina virtuale
+      vmware_guest:
+        hostname: "CentOS_2"
+        username: "admin"
+        password: "Admin01!"
+        validate_certs: no
+        state: poweredon
+        disk:
+        - size_gb: 500
+          type: thin
+        networks:
+        - name: network_test
+          ip: 192.168.100.60
+          netmask: 255.255.252.0
+          gateway: 192.168.100.1
+          dns_servers:
+          - 192.168.100.10
+          - 192.168.101.10
+        hardware:
+          memory_mb: 32768
+          num_cpus: 8
+          domain : DOMINIO-A
