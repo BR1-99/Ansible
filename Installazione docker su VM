@@ -1,0 +1,13 @@
+---
+ - name: Installazione Docker sulle VM CentOS
+   host: all
+   become: true
+   gather_facts: false
+   connection: local
+   remote_user: root
+   pre_task:
+     - raw: sudo yum install docker-ce docker-ce-cli containerd.io #esegue il comando per installare docker sulle VM CentOS
+       register: docker
+   task:
+     - debug:
+        var= docker.stdout_line #esegue il debug e stampa a schermo
